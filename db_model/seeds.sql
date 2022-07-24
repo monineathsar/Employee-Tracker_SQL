@@ -17,7 +17,7 @@ VALUES  ('Salesperson', 80000, 1),
 
 
 INSERT INTO employees (firstName, lastName, role_id, manager_id)
-VALUES  ('Mike', 'Chan', 1, 2)
+VALUES  ('Mike', 'Chan', 1, 2),
         ('John', 'Miller', 8, NULL ),
         ('Ashley', 'Rodriquez', 2, NULL),
         ('Kevin', 'Nguyen', 3, 3),
