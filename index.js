@@ -2,18 +2,9 @@ const { DepartmentJs } = require('./routes/departmentClass');
 const { EmployeeJs } = require('./routes/employeeClass');
 const { RoleJs } = require('./routes/roleClass');
 
-const express = require('express');
-const routes = require('./routes');
 const inquirer = require('inquirer');
 
-const app = express();
-const PORT = process.env.PORT || 3001;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(routes);
-
-const init = () => { mainMenu() }
+const init = () => {mainMenu()}
 
 const mainMenu = () => {
     inquirer.prompt([
@@ -85,5 +76,3 @@ const mainMenu = () => {
 }
 
 init();
-
-app.listen(PORT, () => console.log('Success!!!'));
