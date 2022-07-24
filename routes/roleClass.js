@@ -1,11 +1,21 @@
-// view all roles
+class RoleJs {
+    constructor() {
+        // VIEW all roles
+        showRoles = () => {
+
+        }
+
+        // ADD a new role
+        addRole = () => {
+
+        }
+
+        // BONUS - DELETE roles
+        deleteRole = () => {
+
+        }
+    }
+}
 
 
-// add a new role
-
-
-// BONUS - DELETE roles
-
-
-
-
+module.exports = { RoleJs }

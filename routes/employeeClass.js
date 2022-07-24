@@ -1,19 +1,40 @@
-// view all employees
+class EmployeeJs {
+    constructor() {
+        // View all employees
+        showEmployees = () => {
 
+        }
 
-// add an employee
+        // ADD an employee
+        addEmployee = () => {
 
+        }
 
-// update an employee's role
+        // UPDATE an employee's role
+        updateRole = () => {
 
+        }
 
-// BONUS - UPDATE employee's manager
+        // BONUS - UPDATE employee's manager
+        updateManager = () => {
 
+        }
 
-// BONUS - DELETE employees
+        // BONUS - DELETE employees
+        deleteEmployee = () => {
 
+        }
 
-// BONUS - VIEW employees by manager
+        // BONUS - VIEW employees by manager
+        managerEmployees = () => {
 
+        }
 
-// BONUS - VIEW employees by departments
+        // BONUS - VIEW employees by departments
+        departmentEmployees = () => {
+
+        }
+    }
+}
+
+module.exports = { EmployeeJs }
