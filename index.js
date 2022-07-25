@@ -1,6 +1,8 @@
-const { DepartmentJs } = require('./routes/departmentClass');
+const { showDepartments, addDepartment } = require('./routes/departmentClass');
 const { EmployeeJs } = require('./routes/employeeClass');
 const { RoleJs } = require('./routes/roleClass');
+
+const connection = require('./db_config/connections.js');
 
 const inquirer = require('inquirer');
 
@@ -29,49 +31,49 @@ const mainMenu = () => {
                 'View department budgets']
         }
     ]).then(answers => {
-        const { choices } = answers;
+        let { choices } = answers;
         if (choices === 'View all departments') {
-            DepartmentJs.showDepartments();
+            showDepartments();
         }
-        if (choices === 'View all roles') {
-            RoleJs.showRoles();
-        }
-        if (choices === 'View all employees') {
-            EmployeeJs.EmployeeJsshowEmployees();
-        }
+        // if (choices === 'View all roles') {
+        //     RoleJs.showRoles();
+        // }
+        // if (choices === 'View all employees') {
+        //     EmployeeJs.EmployeeJsshowEmployees();
+        // }
         if (choices === 'Add a department') {
-            DepartmentJs.addDepartment();
+            addDepartment();
         }
-        if (choices === 'Add a role') {
-            RoleJs.addRole();
-        }
-        if (choices === 'Add an employee') {
-            EmployeeJs.addEmployee();
-        }
-        if (choices === 'Update an employee role') {
-            EmployeeJs.updateRole();
-        }
-        if (choices === 'Update an employee manager') {
-            EmployeeJs.updateManager();
-        }
-        if (choices === "View employees by manager") {
-            EmployeeJs.managerEmployees();
-        }
-        if (choices === "View employees by department") {
-            EmployeeJs.departmentEmployees();
-        }
-        if (choices === 'Delete a department') {
-            DepartmentJs.deleteDepartment();
-        }
-        if (choices === 'Delete a role') {
-            RoleJs.deleteRole();
-        }
-        if (choices === 'Delete an employee') {
-            EmployeeJs.deleteEmployee();
-        }
-        if (choices === 'View department budgets') {
-            DepartmentJs.viewBudgets();
-        }
+        // if (choices === 'Add a role') {
+        //     RoleJs.addRole();
+        // }
+        // if (choices === 'Add an employee') {
+        //     EmployeeJs.addEmployee();
+        // }
+        // if (choices === 'Update an employee role') {
+        //     EmployeeJs.updateRole();
+        // }
+        // if (choices === 'Update an employee manager') {
+        //     EmployeeJs.updateManager();
+        // }
+        // if (choices === "View employees by manager") {
+        //     EmployeeJs.managerEmployees();
+        // }
+        // if (choices === "View employees by department") {
+        //     EmployeeJs.departmentEmployees();
+        // }
+        // if (choices === 'Delete a department') {
+        //     DepartmentJs.deleteDepartment();
+        // }
+        // if (choices === 'Delete a role') {
+        //     RoleJs.deleteRole();
+        // }
+        // if (choices === 'Delete an employee') {
+        //     EmployeeJs.deleteEmployee();
+        // }
+        // if (choices === 'View department budgets') {
+        //     DepartmentJs.viewBudgets();
+        // }
     })
 }
 
