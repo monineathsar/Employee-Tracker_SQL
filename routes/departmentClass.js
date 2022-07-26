@@ -62,7 +62,7 @@ const viewBudgets = () => {
                     FROM roles
                     JOIN departments ON roles.department_id = departments.id GROUP by department_id`;
     connection.query(mysql, (err, result) => {
-        console.table(('Showing budgets for eac department:\n'), result)
+        console.table(('Showing budgets for each department:\n'), result)
     })
 }
 
