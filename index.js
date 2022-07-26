@@ -1,4 +1,4 @@
-const { showDepartments, addDepartment } = require('./routes/departmentClass');
+const { showDepartments, addDepartment, deleteDepartment } = require('./routes/departmentClass');
 const { EmployeeJs } = require('./routes/employeeClass');
 const { RoleJs } = require('./routes/roleClass');
 
@@ -62,9 +62,9 @@ const mainMenu = () => {
         // if (choices === "View employees by department") {
         //     EmployeeJs.departmentEmployees();
         // }
-        // if (choices === 'Delete a department') {
-        //     DepartmentJs.deleteDepartment();
-        // }
+        if (choices === 'Delete a department') {
+            deleteDepartment();
+        }
         // if (choices === 'Delete a role') {
         //     RoleJs.deleteRole();
         // }
