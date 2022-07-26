@@ -43,7 +43,7 @@ const addRole = () => {
                 }
             ])
             .then(deptChoice => {
-                const newRoleDept = deptChoice.id;
+                const newRoleDept = deptChoice.i;
                 newRole.push(newRoleDept);
 
                 const mysql = `INSERT INTO roles (title, salary, department_id)
