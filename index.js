@@ -1,6 +1,6 @@
 const { showDepartments, addDepartment, deleteDepartment, viewBudgets } = require('./routes/departmentClass');
 const { EmployeeJs } = require('./routes/employeeClass');
-const { RoleJs } = require('./routes/roleClass');
+const { showRoles, addRole, deleteRole } = require('./routes/roleClass');
 
 const connection = require('./db_config/connections.js');
 
@@ -35,9 +35,9 @@ const mainMenu = () => {
         if (choices === 'View all departments') {
             showDepartments();
         }
-        // if (choices === 'View all roles') {
-        //     RoleJs.showRoles();
-        // }
+        if (choices === 'View all roles') {
+            showRoles();
+        }
         // if (choices === 'View all employees') {
         //     EmployeeJs.EmployeeJsshowEmployees();
         // }
@@ -74,7 +74,8 @@ const mainMenu = () => {
         if (choices === 'View department budgets') {
             viewBudgets();
         }
-    })
+    });
 }
+
 
 init();
