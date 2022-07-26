@@ -49,7 +49,9 @@ const addRole = () => {
                 const mysql = `INSERT INTO roles (title, salary, department_id)
                                 VALUES (?, ?, ?)`;
                 connection.query(mysql, (err, roleResult) => {
-                    console.table(('Sucessfully added ' + answer.title + ' to roles:\n'), roleResult)
+                    console.log('Sucessfully added ' + answer.title + ' to roles:\n');
+
+                    showRoles();
                 });
             });
             
