@@ -65,9 +65,9 @@ const mainMenu = () => {
         if (choices === 'Delete a department') {
             deleteDepartment();
         }
-        // if (choices === 'Delete a role') {
-        //     RoleJs.deleteRole();
-        // }
+        if (choices === 'Delete a role') {
+            deleteRole();
+        }
         // if (choices === 'Delete an employee') {
         //     EmployeeJs.deleteEmployee();
         // }

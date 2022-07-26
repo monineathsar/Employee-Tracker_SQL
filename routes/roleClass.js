@@ -37,18 +37,18 @@ const addRole = () => {
             inquirer.prompt([
                 {
                     type: 'list',
-                    name: 'deptName',
+                    name: 'name',
                     message: 'Which department does this role pertain to?',
                     choices: deptList
                 }
             ])
             .then(deptChoice => {
-                const deptList = deptChoice.deptList;
-                newRole.push(deptList);
+                const newRoleDept = deptChoice.id;
+                newRole.push(newRoleDept);
 
                 const mysql = `INSERT INTO roles (title, salary, department_id)
                                 VALUES (?, ?, ?)`;
-                connection.query(mysql, (err, roleResult) => {
+                connection.query(mysql, newRoleDept, (err, roleResult) => {
                     console.log('Sucessfully added ' + answer.title + ' to roles:\n');
 
                     showRoles();
@@ -61,7 +61,29 @@ const addRole = () => {
 
 // BONUS - DELETE roles
 const deleteRole = () => {
+    const mysql = `SELECT * FROM roles`;
+    connection.query(mysql, (err, result) => {
+        const rolesList = result.map(({title, id}) => ({name: title, value: id}));
+    
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'title',
+                message: 'Which position would you like to delete?',
+                choices: rolesList
+            }
+        ])
+        .then(answer => {
+            const role = answer.title;
+            const mysql = `DELETE FROM roles WHERE id= ?`;
 
+            connection.query(mysql, role, (err, result) => {
+                console.log('Sucessfully deleted ' + answer.title + ' from roles:\n');
+
+                showRoles();
+            });
+        });
+    });
 }
 
 
