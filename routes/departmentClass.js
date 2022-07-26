@@ -6,8 +6,8 @@ const connection = require('../db_config/connections.js');
 
 // VIEW all departments
 const showDepartments = () => {
-    connection.query(`SELECT * FROM departments;`, (err, results) => {
-        console.table(('Showing all departments:\n'), results)
+    connection.query(`SELECT * FROM departments;`, (err, result) => {
+        console.table(('Showing all departments:\n'), result)
     });
 };
 
@@ -24,8 +24,7 @@ const addDepartment = () => {
         const mysql = `INSERT INTO departments (name)
                         VALUE (?)`;
         connection.query(mysql, answer.name, (err, result) => {
-            console.log('Sucessfully added' + answer.name + ' to departments!');
-            showDepartments();
+            console.table(('Sucessfully added' + answer.name + ' to departments:\n'), result)
         });
     });
 };
@@ -48,19 +47,26 @@ const deleteDepartment = () => {
             const depts = answer.depts;
             const mysql = `DELETE FROM departments WHERE id= ?`;
 
-            connection.query(mysql, depts, (err, results) => {
-                console.log('Sucessfully deleted' + answer.depts + ' from departments!');
-                showDepartments();
+            connection.query(mysql, depts, (err, result) => {
+                console.table('Sucessfully deleted' + answer.depts + ' from departments:\n', result)
             });
         });
     });
 };
 
 // BONUS - VIEW department's budget
-const viewBudget = () => {
+const viewBudgets = () => {
+    const mysql = `SELECT department_id AS id,
+                        departments.name AS name,
+                        SUM(salary) AS budget
+                    FROM roles
+                    JOIN departments ON roles.department_id = departments.id GROUP by department_id`;
+    connection.query(mysql, (err, result) => {
+        console.table(('Showing budgets for eac department:\n'), result)
+    })
 }
 
 
 
 
-module.exports = { showDepartments, addDepartment, deleteDepartment }
+module.exports = { showDepartments, addDepartment, deleteDepartment, viewBudgets }
