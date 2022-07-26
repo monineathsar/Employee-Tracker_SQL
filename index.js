@@ -44,9 +44,9 @@ const mainMenu = () => {
         if (choices === 'Add a department') {
             addDepartment();
         }
-        // if (choices === 'Add a role') {
-        //     RoleJs.addRole();
-        // }
+        if (choices === 'Add a role') {
+            addRole();
+        }
         // if (choices === 'Add an employee') {
         //     EmployeeJs.addEmployee();
         // }

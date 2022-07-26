@@ -24,7 +24,9 @@ const addDepartment = () => {
         const mysql = `INSERT INTO departments (name)
                         VALUE (?)`;
         connection.query(mysql, answer.name, (err, result) => {
-            console.table(('Sucessfully added' + answer.name + ' to departments:\n'), result)
+            console.log('Sucessfully added ' + answer.name + ' to departments:\n');
+
+            showDepartments();
         });
     });
 };
@@ -48,7 +50,9 @@ const deleteDepartment = () => {
             const mysql = `DELETE FROM departments WHERE id= ?`;
 
             connection.query(mysql, depts, (err, result) => {
-                console.table('Sucessfully deleted' + answer.depts + ' from departments:\n', result)
+                console.log('Sucessfully deleted ' + answer.depts + ' from departments:\n');
+
+                showDepartments();
             });
         });
     });
