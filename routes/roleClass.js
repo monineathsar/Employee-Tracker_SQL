@@ -6,7 +6,9 @@ const connection = require('../db_config/connections.js');
 
 // VIEW all roles
 const showRoles = () => {
-    const mysql = `SELECT roles.id, roles.title, roles.salary, departments.name AS department FROM roles LEFT JOIN departments ON departments.id = roles.department_id`;
+    const mysql = `SELECT roles.id, roles.title, roles.salary, departments.name AS department 
+                    FROM roles 
+                    LEFT JOIN departments ON departments.id = roles.department_id`;
     connection.query(mysql, (err, result) => {
         console.table(('Showing all positions:\n'), result)
     });
@@ -14,51 +16,53 @@ const showRoles = () => {
 
 // ADD a new role
 const addRole = () => {
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'title',
-            message: 'What is the title of the new role?'
-        },
-        {
-            type: 'input',
-            name: 'salary',
-            message: 'What is the salary for this role?'
-        }
-    ])
-    .then(answer => {
-        const newRole = [answer.title, answer.salary];
-
-        const roleSql = `SELECT name, id
-                        FROM departments`;
-
-        connection.query(roleSql, (err, deptResult) => {
-            const deptList = deptResult.map(({ name, id }) => ({ name: name, value: id }));
-
-            inquirer.prompt([
-                {
-                    type: 'list',
-                    name: 'name',
-                    message: 'Which department does this role pertain to?',
-                    choices: deptList
-                }
-            ])
-            .then(deptChoice => {
-                const newRoleDept = deptChoice.id;
-                newRole.push(newRoleDept);
-
-                const mysql = `INSERT INTO roles (title, salary, department_id)
-                                VALUES (?, ?, ?)`;
-                connection.query(mysql, newRoleDept, (err, roleResult) => {
-                    console.log('Sucessfully added ' + answer.title + ' to roles:\n');
-
-                    showRoles();
+    // const mysql = `SELECT roles.id, roles.title, roles.salary, departments.name AS department 
+    // FROM roles 
+    // LEFT JOIN departments ON departments.id = roles.department_id`;
+    // connection.query(mysql, (err, result) => {
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'title',
+                message: 'What is the title of the new role?'
+            },
+            {
+                type: 'input',
+                name: 'salary',
+                message: 'What is the salary for this role?'
+            }
+        ])
+        .then(answer => {
+            const newRole = [answer.title, answer.salary];
+    
+            const roleSql = `SELECT * FROM departments`;
+            connection.query(roleSql, (err, deptResult) => {
+                const deptList = deptResult.map(({ name, id }) => ({ name: name, value: id }));
+    
+                inquirer.prompt([
+                    {
+                        type: 'list',
+                        name: 'name',
+                        message: 'Which department does this role pertain to?',
+                        choices: deptList
+                    }
+                ])
+                .then(deptChoice => {
+                    newRole.push(deptChoice.name);
+                    const mysql = `INSERT INTO roles (title, salary, department_id)
+                                    VALUES (?, ?, ?)`;
+                    connection.query(mysql, newRole, (err, roleResult) => {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log('Sucessfully added ' + answer.title + ' to roles:\n');
+                        showRoles();
+                    });
                 });
             });
-            
         });
-    });
 };
+;
 
 // BONUS - DELETE roles
 const deleteRole = () => {
