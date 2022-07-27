@@ -9,18 +9,17 @@ const showEmployees = () => {
     const mysql = `SELECT employees.id,
                             employees.firstName,
                             employees.lastName,
-                            roles.title,
-                            departments.name AS department,
+                            roles.title AS role,
                             roles.salary,
-                            CONCAT (manager.firstName, " ", manager.lastName) AS manager
+                            departments.name AS department,
+                            CONCAT (e.firstName, " ", e.lastName) AS manager
                     FROM employees
-                            LEFT JOIN roles ON employees.role_id = roles.id
-                            LEFT JOIN departments ON roles.department_id = departments.id
-                            LEFT JOIN employee manager ON employees.manager_id = manager.id`;
+                            INNER JOIN roles ON roles.id = employees.role_id 
+                            INNER JOIN departments ON departments.id = roles.department_id
+                            LEFT JOIN employees e ON employees.manager_id = e.id`;
 
     connection.query(mysql, (err, result) => {
-        console.log('Showing all employees:\n');
-        console.table(result);
+        console.table(('Showing all roles:\n'), result)
     });
 }
 
