@@ -6,7 +6,8 @@ const connection = require('../db_config/connections.js');
 
 // VIEW all roles
 const showRoles = () => {
-    connection.query(`SELECT * FROM roles;`, (err, result) => {
+    const mysql = `SELECT roles.id, roles.title, roles.salary, departments.name AS department FROM roles LEFT JOIN departments ON departments.id = roles.department_id`;
+    connection.query(mysql, (err, result) => {
         console.table(('Showing all positions:\n'), result)
     });
 }
@@ -43,7 +44,7 @@ const addRole = () => {
                 }
             ])
             .then(deptChoice => {
-                const newRoleDept = deptChoice.i;
+                const newRoleDept = deptChoice.id;
                 newRole.push(newRoleDept);
 
                 const mysql = `INSERT INTO roles (title, salary, department_id)

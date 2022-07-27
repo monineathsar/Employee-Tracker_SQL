@@ -11,43 +11,19 @@ CREATE TABLE departments (
 );
 
 CREATE TABLE roles (
-    id INT AUTO_INCREMENT,
+    id INT PRIMARY KEY (id) AUTO_INCREMENT,
     title VARCHAR(30),
     salary DECIMAL,
-    department_id INT NOT NULL,
-    PRIMARY KEY (id),
+    department_id INT,
     FOREIGN KEY (department_id) REFERENCES departments(id)
-    ON DELETE SET NULL
 );
 
 CREATE TABLE employees (
-    id INT AUTO_INCREMENT,
+    id INT PRIMARY KEY (id) AUTO_INCREMENT,
     firstName VARCHAR(30) NOT NULL,
     lastName VARCHAR(30) NOT NULL,
     role_id INT NOT NULL,
     manager_id INT,
-    PRIMARY KEY (id),
-    FOREIGN KEY (role_id) REFERENCES roles(id)
-    -- FOREIGN KEY manager_id REFERENCES managers(id)
-    ON DELETE SET NULL
+    FOREIGN KEY (role_id) REFERENCES roles(id),
+    FOREIGN KEY (manager_id) REFERENCES employees(id) 
 );
-
-
-
-
-
-
-
-
--- bonus to view employees by manager?
-
--- CREATE TABLE managers (
---     id INT,
---     firstName VARCHAR(30),
---     lastName VARCHAR(30),
---     departments_id INT,
---     employeesList INT,
---     PRIMARY KEY (id)
---     FOREIGN KEY department_id REFERENCES departments(id)
---     FOREIGN key employeesList REFERENCES employees(id)
--- );
