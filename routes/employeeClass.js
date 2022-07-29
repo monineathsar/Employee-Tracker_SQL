@@ -102,8 +102,30 @@ const updateManager = () => {
 
 // BONUS - DELETE employees
 const deleteEmployee = () => {
+    const mysql = `SELECT * FROM employees`;
+    connection.query(mysql, (err, result) => {
+        const employeelist = result.map(({ id, firstName, lastName }) => ({ name: firstName + ' ' + lastName, value: id }));
 
-}
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Which employee would you like to delete?', 
+                choices: employeelist
+            }
+        ])
+        .then(answer => {
+            const deletedEmploy = answer.name;
+            const deleteSql = `DELETE FROM employees WHERE id=?`;
+
+            connection.query(deleteSql, deletedEmploy, (err, result) => {
+                console.log('Successfully deleted ' + answer.name + ' from employee list!\n');
+
+                showEmployees();
+            });
+        });
+    });
+};
 
 // BONUS - VIEW employees by manager
 const managerEmployees = () => {
