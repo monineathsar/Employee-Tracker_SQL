@@ -150,9 +150,61 @@ const updateEmployRole = () => {
 };
 
 // BONUS - UPDATE employee's manager
-const updateManager = () => {
+const updateEmployManager = () => {
+    const employSql = `SELECT * FROM employees`;
+    connection.query(employSql, (err, result) => {
+        if (err) throw err;
 
-}
+        const employeeList = result.map(({ id, firstName, lastName }) => ({ name: firstName + ' ' + lastName, value: id }));
+
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Which employee would you like to update?',
+                choices: employeeList
+            }
+        ])
+        .then(employChoice => {
+            const selectedEmploy = employChoice.name;
+            const updateEmploy = [];
+            updateEmploy.push(selectedEmploy);
+
+            const managerSql = `SELECT * FROM employees`;
+
+            connection.query(managerSql, (err, managerResult) => {
+                if (err) throw err;
+
+                const employList = managerResult.map(({ id, firstName, lastName }) => ({ name: firstName + ' ' + lastName, value: id }));
+                inquirer.prompt([
+                    {
+                        type: 'list',
+                        name: 'manager',
+                        message: "Who is the employee's new manager?",
+                        choices: employList
+                    }
+                ])
+                .then(managerChoice => {
+                    const newManager = managerChoice.manager;
+                    updateEmploy.push(newManager);
+
+                    let employee = updateEmploy[0]
+                    updateEmploy[0] = managerChoice.manager
+                    updateEmploy[1] = employee
+
+                    const mysql = `UPDATE employees SET manager_id = ? WHERE id = ?`;
+
+                    connection.query(mysql, updateEmploy, (err, result) => { 
+                        if (err) throw err;
+                        console.log("Successfully updated employee's manager!");
+
+                        showEmployees();
+                    });
+                });
+            });
+        });
+    });
+};
 
 // BONUS - DELETE employees
 const deleteEmployee = () => {
@@ -191,4 +243,4 @@ const departmentEmployees = () => {
 
 }
 
-module.exports = { showEmployees, addEmployee, updateEmployRole, updateManager, deleteEmployee, managerEmployees, departmentEmployees }
+module.exports = { showEmployees, addEmployee, updateEmployRole, updateEmployManager, deleteEmployee, managerEmployees, departmentEmployees }
