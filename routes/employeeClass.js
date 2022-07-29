@@ -2,6 +2,7 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const connection = require('../db_config/connections.js');
+const { connect } = require('../db_config/connections.js');
 
 
 // View all employees
@@ -91,9 +92,62 @@ const addEmployee = () => {
 };
 
 // UPDATE an employee's role
-const updateRole = () => {
+const updateEmployRole = () => {
+    const employSql = `SELECT * FROM employees`;
+    connection.query(employSql, (err, result) => {
+        if (err) throw err;
 
-}
+        const employeeList = result.map(({ id, firstName, lastName }) => ({ name: firstName + ' ' + lastName, value: id }));
+
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'name',
+                message: 'Which employee would you like to update?',
+                choices: employeeList
+            }
+        ])
+        .then(employChoice => {
+            const selectedEmploy = employChoice.name;
+            const updateEmploy = [];
+            updateEmploy.push(selectedEmploy);
+
+            const rolesSql = `SELECT * FROM roles`;
+
+            connection.query(rolesSql, (err, rolesResult) => {
+                if (err) throw err;
+
+                const rolesList = rolesResult.map(({ id, title }) => ({ name: title, value: id }));
+
+                inquirer.prompt([
+                    {
+                        type: 'list',
+                        name: 'title',
+                        message: "What is the employee's new role?",
+                        choices: rolesList
+                    }
+                ])
+                .then(roleChoice => {
+                    const newRole = roleChoice.title;
+                    updateEmploy.push(newRole);
+
+                    let employee = updateEmploy[0]
+                    updateEmploy[0] = roleChoice.title
+                    updateEmploy[1] = employee
+
+                    const mysql = `UPDATE employees SET role_id = ? WHERE id = ?`;
+
+                    connection.query(mysql, updateEmploy, (err, result) => { 
+                        if (err) throw err;
+                        console.log("Successfully updated employee's role!");
+
+                        showEmployees();
+                    });
+                });
+            });
+        });
+    });
+};
 
 // BONUS - UPDATE employee's manager
 const updateManager = () => {
@@ -137,4 +191,4 @@ const departmentEmployees = () => {
 
 }
 
-module.exports = { showEmployees, addEmployee, updateRole, updateManager, deleteEmployee, managerEmployees, departmentEmployees }
+module.exports = { showEmployees, addEmployee, updateEmployRole, updateManager, deleteEmployee, managerEmployees, departmentEmployees }

@@ -1,5 +1,5 @@
 const { showDepartments, addDepartment, deleteDepartment, viewBudgets } = require('./routes/departmentClass');
-const { showEmployees, addEmployee, updateRole, updateManager, deleteEmployee, managerEmployees, departmentEmployees } = require('./routes/employeeClass');
+const { showEmployees, addEmployee, updateEmployRole, updateManager, deleteEmployee, managerEmployees, departmentEmployees } = require('./routes/employeeClass');
 const { showRoles, addRole, deleteRole } = require('./routes/roleClass');
 
 const connection = require('./db_config/connections.js');
@@ -50,9 +50,9 @@ const mainMenu = () => {
         if (choices === 'Add an employee') {
             addEmployee();
         }
-        // if (choices === 'Update an employee role') {
-        //     EmployeeJs.updateRole();
-        // }
+        if (choices === 'Update an employee role') {
+            updateEmployRole();
+        }
         // if (choices === 'Update an employee manager') {
         //     EmployeeJs.updateManager();
         // }
