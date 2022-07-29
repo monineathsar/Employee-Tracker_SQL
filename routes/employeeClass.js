@@ -233,14 +233,4 @@ const deleteEmployee = () => {
     });
 };
 
-// BONUS - VIEW employees by manager
-const managerEmployees = () => {
-
-}
-
-// BONUS - VIEW employees by departments
-const departmentEmployees = () => {
-
-}
-
-module.exports = { showEmployees, addEmployee, updateEmployRole, updateEmployManager, deleteEmployee, managerEmployees, departmentEmployees }
+module.exports = { showEmployees, addEmployee, updateEmployRole, updateEmployManager, deleteEmployee }
