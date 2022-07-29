@@ -23,12 +23,11 @@ const mainMenu = () => {
                 'Add an employee',
                 'Update an employee role',
                 'Update an employee manager',
-                "View employees by manager",
-                "View employees by department",
                 'Delete a department',
                 'Delete a role',
                 'Delete an employee',
-                'View department budgets']
+                'View department budgets',
+                'End application']
         }
     ]).then(answers => {
         let { choices } = answers;
@@ -67,6 +66,9 @@ const mainMenu = () => {
         }
         if (choices === 'View department budgets') {
             viewBudgets();
+        }
+        if (choices === 'End application') {
+            connection.end();
         }
     });
 }

@@ -2,7 +2,6 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const connection = require('../db_config/connections.js');
-const { connect } = require('../db_config/connections.js');
 
 
 // View all employees
