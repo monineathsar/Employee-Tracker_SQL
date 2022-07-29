@@ -51,7 +51,7 @@ const addRole = () => {
                     if (err) {
                         throw err;
                     }
-                    console.log('Sucessfully added ' + answer.title + ' to roles:\n');
+                    console.log('Sucessfully added ' + answer.title + ' to roles!\n');
                     showRoles();
                 });
             });
@@ -78,7 +78,7 @@ const deleteRole = () => {
                 const mysql = `DELETE FROM roles WHERE id= ?`;
 
                 connection.query(mysql, role, (err, result) => {
-                    console.log('Sucessfully deleted ' + answer.title + ' from roles:\n');
+                    console.log('Sucessfully deleted ' + answer.title + ' from roles!\n');
 
                     showRoles();
                 });
